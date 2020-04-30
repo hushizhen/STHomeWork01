@@ -1,0 +1,258 @@
+package com.zxy.bean;
+import java.util.ArrayList;
+import java.util.Scanner;
+ 
+public class Student {
+ private int ID;
+ private String name;
+ private bool  gender;
+ private String  birDate;
+ }
+
+ public class StudentManager(){
+ 
+ }
+ public Student(int id,String name,int age,String addr){
+ this.ID=ID;
+ this.name=name;
+ this.gender=gender;
+ this. birDate= birDate;
+ }
+ 
+ public int getId() {
+ return id;
+ }
+ 
+ public void setId(int id) {
+ this.id = id;
+ }
+ 
+ public String getName() {
+ return name;
+ }
+ 
+ public void setName(String name) {
+ this.name = name;
+ }
+ 
+ public int getgender() {
+ return gender;
+ }
+ 
+ public void setgender( bool  gender) {
+ this.gender= gender;
+ }
+ 
+ public String getbirDate() {
+ return birDate;
+ }
+ 
+ public void setAddr(String birDate) {
+ this.addr = birDate;
+ }
+ 
+ @Override
+ public String toString() {
+ return "{ID: "+this.id+",name: "+this.name+",gender: "+this.gender+",birDate: "+this.birDate+"}";
+ }
+ 
+ 
+  //1插入
+ @Override
+ public void addStudent(ArrayList<Student> list) {
+ Scanner sc=new Scanner(System.in);
+ System.out.println("请输入学号：");
+ int ID=sc.nextInt();
+ 
+ System.out.println("请输入姓名：");
+ String name=sc.next();
+ 
+ System.out.println("请输入出生日期：");
+ int birDate=sc.nextInt();
+ 
+ System.out.println("请输入性别：");
+ bool gender=sc.next();
+ 
+ list.add(new Student(id,name,birDate,gender));
+ 
+ System.out.println("插入完成");
+ }
+
+//2查找
+ @Override
+ public void findOnlyStudent(ArrayList<Student> list) {
+ Scanner sc=new Scanner(System.in);
+ System.out.println("输入要查找的学生姓名：");
+ int name=sc.nextInt();
+ 
+ for (Student stu:list){
+  if (stu.getId()==name){
+  System.out.println(stu.toString());
+  }else {
+  System.out.println("你输入的姓名不存在");
+  return;
+  }
+ }
+ }
+ 
+
+//3删除
+ @Override
+ public void delStudent(ArrayList<Student> list) {
+ // 首先删除之前还是要判断一下有没有信息
+ Scanner sc=new Scanner(System.in);
+ 
+ if (list.size()==0){
+  // 如果为0，则说明list中没有学生信息
+  System.out.println("没有学生信息");
+  return;
+ }
+ findStudent(list);
+ System.out.println("输入要删除的姓名：");
+ //  
+ int id=sc.nextInt();
+ 
+ // 判断要删除的姓名是不是在list中
+ for (int i=0;i<list.size();i++){
+  if (list.get(i).getId()==name){
+  Object string = list.remove(i);
+  System.out.println("删除成功,你删除的是："+string);
+  }
+ }
+ }
+
+//4修改
+ @Override
+ public void changeStudent(ArrayList<Student> list) {
+ // 修改学生信息
+ Scanner sc=new Scanner(System.in);
+ 
+ if (list.size()==0){
+  System.out.println("当前没有学生信息");
+  return; 
+ }
+ System.out.println("输入要修改的学生的姓名：");
+ int name=sc.nextInt();
+ 
+ 
+ // 判断id是否在list中，如果在，就修改
+ boolean flag=false;
+// 如果boolean为false，那么说明没有在这个人
+ for (int i=0;i<list.size();i++){
+  if (list.get(i).getId()==name){
+  
+// 如果存在，就输入新的学号、姓名、出生日期、性别
+  System.out.println("输入新的学号：");
+  int idNew=sc.nextInt();
+ 
+  System.out.println("输入新的姓名：");
+  String nameNew=sc.next();
+ 
+  System.out.println("输入新的出生日期：");
+  int birDateNew=sc.nextInt();
+ 
+  System.out.println("输入新的性别：");
+  bool gender =sc.next();
+ 
+  list.set(i,new Student(idNew,nameNew,birDateNew,genderNew));
+ 
+  System.out.println("修改成功");
+  return;
+  }
+ }
+ if (flag==false){
+  System.out.println("没有该学生");
+ }
+ }
+ 
+
+//5输出
+ @Override
+ public void findStudent(ArrayList<Student> list) {
+ if (list.size()==0){
+  System.out.println("没有学生信息");
+ }
+ // 输出全部学生信息
+ for (Student student:list){
+  System.out.println(student.toString());
+  System.out.println("信息已展示");
+ }
+ return;
+ }
+  
+ 
+ 
+ 
+ public static void main(String[] args) {
+ 
+ App();
+ }
+ // 封装一个App的方法
+ public static void menu(){
+ // 数组保存学生信息,类型使用Student类型
+ ArrayList<Student> list=new ArrayList<>();
+ StudentManager stu=new StudentManager();
+ boolean flag=true;
+ while (flag){
+ System.out.println("***** 欢迎来到学生信息管理系统 *****");
+ System.out.println("******* 1.插入 *********");
+ System.out.println("******* 2.查找 *********");
+ System.out.println("******* 3.删除 *********");
+ System.out.println("******* 4.修改  *********");
+ System.out.println("******* 5. 输出 *********");
+ System.out.println("******* 6.退出  *********");
+ System.out.println("**********************************");
+ System.out.println("请输入您要操作的序号: ");
+ // 序号选择
+ int choice=new Scanner(System.in).nextInt();
+  switch (choice){
+  case 1:
+   // 查询学生
+   stu.findStudent(list);
+   break;
+  case 2:
+   // 查询单个学生
+   stu.findOnlyStudent(list);
+   break;
+  case 3:
+   // 添加学生
+   stu.addStudent(list);
+   break;
+  case 4:
+   // 修改学生
+   stu.changeStudent(list);
+   break;
+  case 5:
+   // 删除学生
+   stu.delStudent(list);
+   break;
+  case 6:
+   // 退出程序
+   flag=false;
+   System.out.println("程序退出成功，欢迎下次使用");
+   break;
+  }
+ }
+ }
+ 
+
+public interface StudentInterface {
+ void addStudent(ArrayList<Student> list);
+ void delStudent(ArrayList<Student> list);
+ void findStudent(ArrayList<Student> list);
+ void changeStudent(ArrayList<Student> list);
+ void findOnlyStudent(ArrayList<Student> list);
+}
+
+
+public class SMTest {
+    public static void main(String[] args) {
+        ArrayList<Student> list=new ArrayList<>();
+       StudentManager stu=new StudentManager();
+       StudentManager.app();
+         
+    }
+}
+
+
+ }
